@@ -1,0 +1,18 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+df=pd.read_csv('msft_data.csv')
+df['Date']=pd.to_datetime(df['Date']) 
+df=df.sort_values('Date')
+df['20 Day MA']=df['Close'].rolling(window=20).mean()
+df['50 Day MA']=df['Close'].rolling(window=50).mean()
+plt.figure(figsize=(12,6))
+plt.plot(df['Date'], df['Close'], label='Close Price', color='blue')
+plt.plot(df['Date'], df['20 Day MA'], label='20 Day MA', color='orange')
+plt.plot(df['Date'], df['50 Day MA'], label='50 Day MA', color='red')
+plt.title('MSFT Stock Price with Moving Averages')
+plt.xlabel('Date')
+plt.ylabel('Price (USD)')
+plt.legend()
+plt.grid()
+plt.tight_layout()
+plt.show()
